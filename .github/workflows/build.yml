@@ -36,7 +36,7 @@ jobs:
 
       - name: Build Theos Tweak
         run: |
-          export THEOS=~/theos
+          export THEOS=$HOME/theos
           make clean
           make package
           ls -la debs/
