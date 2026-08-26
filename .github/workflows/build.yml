@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Theos dependencies
         run: |
-          brew install libxml2 dpkg
+          brew install libxml2 dpkg ldid
 
       - name: Build CocoaHTTPServer
         run: |
