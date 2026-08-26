@@ -1,6 +1,7 @@
 #ifndef __FILELOG_OBJECTIVE_C_H__
 #define __FILELOG_OBJECTIVE_C_H__
 
+#import <Foundation/Foundation.h>
 #include "filelog.h"
 
 /**
