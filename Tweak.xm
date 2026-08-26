@@ -3,6 +3,7 @@
 **/
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFHTTPMessage.h>
+#import <UIKit/UIKit.h>
 #import "substrate.h"
 
 #import "FLogObjectiveC.h"
