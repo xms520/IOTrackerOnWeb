@@ -11,8 +11,6 @@ jobs:
   build:
     name: Build IOTracker iOS Tweak
     runs-on: macos-latest
-    env:
-      THEOS: ~/theos
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -21,7 +19,7 @@ jobs:
 
       - name: Install Theos
         run: |
-          git clone --recursive https://github.com/theos/theos.git $THEOS
+          git clone --recursive https://github.com/theos/theos.git ~/theos
 
       - name: Install Theos dependencies
         run: |
