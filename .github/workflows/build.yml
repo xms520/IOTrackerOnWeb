@@ -12,7 +12,7 @@ jobs:
     name: Build IOTracker iOS Tweak
     runs-on: macos-latest
     env:
-      THEOS: /opt/theos
+      THEOS: ~/theos
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -22,11 +22,10 @@ jobs:
       - name: Install Theos
         run: |
           git clone --recursive https://github.com/theos/theos.git $THEOS
-          sudo $THEOS/bin/nic.pl
 
-      - name: Install dependency for CocoaHTTPServer
+      - name: Install Theos dependencies
         run: |
-          brew install libxml2
+          brew install libxml2 dpkg
 
       - name: Build CocoaHTTPServer
         run: |
@@ -37,7 +36,7 @@ jobs:
 
       - name: Build Theos Tweak
         run: |
-          export THEOS=/opt/theos
+          export THEOS=~/theos
           make clean
           make package
           ls -la debs/
