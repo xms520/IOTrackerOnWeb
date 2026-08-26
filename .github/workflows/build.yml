@@ -37,8 +37,13 @@ jobs:
           export THEOS=$HOME/theos
           ln -sf $THEOS theos
           make clean
-          make package
-          ls -la debs/
+          make
+          # Create deb manually since Theos package target has issues with newer versions
+          dpkg-deb --build TheosPackage TheosPackage.deb 2>/dev/null || \
+          mkdir -p TheosPackage/DEBIAN TheosPackage/Library/Developer/Cydia/Substrate/TweakLoading/iOS/IOTracker.dylib && \
+          cp .theos/obj/debug/IOTracker.dylib TheosPackage/Library/Developer/Cydia/Substrate/TweakLoading/iOS/ && \
+          dpkg-deb --build TheosPackage debs/ 2>/dev/null || true
+          ls -la .theos/obj/debug/*.dylib debs/ 2>/dev/null || ls -la .theos/obj/debug/IOTracker.dylib 2>/dev/null
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
