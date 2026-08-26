@@ -39,19 +39,12 @@ jobs:
           make clean
           make
           mkdir -p debs
+          # Copy dylib to debs folder
           cp .theos/obj/debug/IOTracker.dylib debs/
-          # Create minimal deb package
-          mkdir -p debs_root/DEBIAN debs_root/Library/Developer/Cydia/Substrate/TweakLoading/iOS
-          cp debs/IOTracker.dylib debs_root/Library/Developer/Cydia/Substrate/TweakLoading/iOS/
-          echo "Package: com.ioTracker.tweak
-Version: 1.0.0
-Architecture: iphoneos-arm
-Description: IO Tracker iOS Tweak" > debs_root/DEBIAN/control
-          dpkg-deb --build debs_root debs/IOTracker.deb
           ls -la debs/
 
-      - name: Upload artifact
+      - name: Upload dylib artifact
         uses: actions/upload-artifact@v4
         with:
-          name: IOTracker-deb
-          path: debs/*.deb
+          name: IOTracker.dylib
+          path: debs/IOTracker.dylib
