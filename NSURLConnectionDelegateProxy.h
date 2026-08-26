@@ -1,6 +1,9 @@
 #ifndef __NSURL_CONNECTION_DELEGATE_PROXY_H__
 #define __NSURL_CONNECTION_DELEGATE_PROXY_H__
 
+#import <Foundation/Foundation.h>
+#import <CFNetwork/CFNetwork.h>
+
 // Modify from Introspy-iOS
 // https://github.com/iSECPartners/Introspy-iOS/blob/master/src/hooks/NSURLConnectionDelegateProx.h
 
