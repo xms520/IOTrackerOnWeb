@@ -13,7 +13,7 @@ HEADER_DIR := include/
 # (name)_LDFLAGS += -L./ -lCocoaHTTPServer -lxml2 -lz
 # (name)_FRAMEWORKS = UIKit CFNetwork Security CoreGraphics
 
-ARCHS   := armv7 armv7s arm64
+ARCHS   := arm64
 CFLAGS  := -O2 -fobjc-arc -I/usr/include/libxml2 -Wno-format -Wno-mismatched-parameter-types -Wno-unused-function -Wno-deprecated-declarations -Wno-enum-conversion
 
 CLANG   := clang
