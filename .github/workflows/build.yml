@@ -1,0 +1,49 @@
+name: Build IOTrackerOnWeb
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build IOTracker iOS Tweak
+    runs-on: macos-latest
+    env:
+      THEOS: /opt/theos
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $THEOS
+          sudo $THEOS/bin/nic.pl
+
+      - name: Install dependency for CocoaHTTPServer
+        run: |
+          brew install libxml2
+
+      - name: Build CocoaHTTPServer
+        run: |
+          cd CocoaHTTPServer
+          make headers
+          make
+          cd ..
+
+      - name: Build Theos Tweak
+        run: |
+          export THEOS=/opt/theos
+          make clean
+          make package
+          ls -la debs/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: IOTracker-deb
+          path: debs/*.deb
