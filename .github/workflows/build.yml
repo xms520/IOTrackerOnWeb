@@ -38,12 +38,17 @@ jobs:
           ln -sf $THEOS theos
           make clean
           make
-          # Create deb manually since Theos package target has issues with newer versions
-          dpkg-deb --build TheosPackage TheosPackage.deb 2>/dev/null || \
-          mkdir -p TheosPackage/DEBIAN TheosPackage/Library/Developer/Cydia/Substrate/TweakLoading/iOS/IOTracker.dylib && \
-          cp .theos/obj/debug/IOTracker.dylib TheosPackage/Library/Developer/Cydia/Substrate/TweakLoading/iOS/ && \
-          dpkg-deb --build TheosPackage debs/ 2>/dev/null || true
-          ls -la .theos/obj/debug/*.dylib debs/ 2>/dev/null || ls -la .theos/obj/debug/IOTracker.dylib 2>/dev/null
+          mkdir -p debs
+          cp .theos/obj/debug/IOTracker.dylib debs/
+          # Create minimal deb package
+          mkdir -p debs_root/DEBIAN debs_root/Library/Developer/Cydia/Substrate/TweakLoading/iOS
+          cp debs/IOTracker.dylib debs_root/Library/Developer/Cydia/Substrate/TweakLoading/iOS/
+          echo "Package: com.ioTracker.tweak
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: IO Tracker iOS Tweak" > debs_root/DEBIAN/control
+          dpkg-deb --build debs_root debs/IOTracker.deb
+          ls -la debs/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
